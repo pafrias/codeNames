@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aliases - Twosies</title>
+  <style>
+    button {
+      display:block;
+      margin: 2rem auto;
+      border-radius: 10px;
+      border: 3px solid gray;
+      background: rgb(29, 165, 72);
+      color: white;
+      font-size: 4rem;
+      padding: 1rem;
+    }
+    button:hover {
+      color:rgb(29, 165, 72);
+      background: white;
+      border-color: black;
+      cursor:pointer;
+    }
+  </style>
+  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+</head>
+<body>
+  <div class="wrapper">
+    <button id='new_game'>NEW GAME</button>
+  </div>
+  <script>
+    // GET '/api/newgame'
+    let button = document.getElementById('new_game');
+
+    button.onclick = () => {
+      axios.get('/api/newgame').then(res => {
+        console.log(res, res.data);
+        let gameID = res.data.gameID;
+
+      // redirect to '/board?gameID="foo",player="1"'
+        window.location.replace(`/game?gameID=${gameID}&player=1`);
+      })
+    }
+
+  </script>
+</body>
+</html>
