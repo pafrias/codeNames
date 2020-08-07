@@ -55,11 +55,13 @@ app.get('/api/game', (req, res) => {
   }
 });
 
-app.listen(3001, (e) => {
+const PORT = process.env.port || 80;
+
+app.listen(PORT, (e) => {
   if (e) {
     console.log('error detected: \n', e);
     process.exit(0);
   } else {
-    console.log('now listening on port 3001');
+    console.log(`now listening on port ${PORT}`);
   }
 });
