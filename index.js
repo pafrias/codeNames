@@ -2,34 +2,25 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const {createBoard} = require('./createBoard');
+const {createGameSet} = require('./createBoard');
+const Math = require('mathjs');
 const {cache} = require('./model');
 
 const app = express();
 app.use(morgan('dev'));
 
-// path '/' - send front page
-// --> big "Start Game" button
-// --> sends a request to the server for a new game
-let dist = path.resolve(__dirname, 'dist');
 
+let dist = path.resolve(__dirname, 'dist');
 app.use(express.static(dist));
 
-let idCount = 0;
-
-app.get('/api/newgame', (req, res) => {
-  // create new game
-  let gameBoard = createBoard();
-  //write to redis
-
-  cache.setexAsync(idCount, 3600, JSON.stringify(gameBoard))
-    .then(() => {
-      res.send({gameID: idCount.toString()});
-      idCount++;
-    }).catch(e => {
+app.get('/api/test', async (req, res) => {
+  for (let i = 0; i < 2560; i++) {
+    await cache.getAsync(i.toString(16)).catch(e => {
       console.log(e);
-      res.status(400).send(e);
+      res.sendStatus(400);
     });
+  }
+  res.sendStatus(200);
 });
 
 app.get('/api/game', (req, res) => {
@@ -44,7 +35,6 @@ app.get('/api/game', (req, res) => {
           agents: player === "1" ? data[0] : data[2],
           sass: player === "1" ? data[1] : data[3]
         }
-        //console.log(json);
         res.send(json);
       }).catch(e => {
         console.log(e);
@@ -55,7 +45,19 @@ app.get('/api/game', (req, res) => {
   }
 });
 
-const PORT = process.env.port || 80;
+let counter = 0;
+
+for (let game of createGameSet(2560)) {
+  cache.set(counter.toString(16), JSON.stringify(game), (e, bool) => {
+    if (e) {
+      console.log(e, bool)
+      process.exit(1);
+    };
+  });
+  counter++;
+}
+
+const PORT = process.env.PORT || 80;
 
 app.listen(PORT, (e) => {
   if (e) {

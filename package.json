@@ -24,6 +24,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "mathjs": "^7.1.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "redis": "^3.0.2"

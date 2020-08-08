@@ -5,13 +5,12 @@ On Amazon EC2
 ```
 sudo -s
 yum update
-yum install git
-
 # install redis
 amazon-linux-extras install redis4.0
 
 
 #install node
+yum install git
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -25,4 +24,5 @@ npm i -g pm2
 
 redis-server --daemonize yes
 pm2 start index.js
+
 ```
