@@ -24,9 +24,14 @@ function convertRowsToHtml(rows, isRotated) {
   let tRows = rows.map(row => `<tr>${row.join('')}</tr>`);
   
   let front = `<tr${isRotated ? ' style="transform: rotate(180deg);"' : ''}><td colspan="5" class="front">FRONT</td></tr>`
-  
-  if (isRotated) tRows.unshift(front);
-  else tRows.push([front]);
+  let spacer = '<tr><td colspan="5" class="spacer"></td></tr>'
+  if (isRotated) {
+    tRows.push(spacer);
+    tRows.unshift(front);
+  } else {
+    tRows.push(front);
+    tRows.unshift(spacer);
+  } 
 
   return tRows;
 }
@@ -57,7 +62,7 @@ td {
 .agent {
   background: rgb(29, 165, 72);
 }
-.front {
+.spacer, .front {
   background: white;
   color: rgb(31, 94, 31);
   border-width: 1px;
@@ -90,13 +95,20 @@ nav {
   }
 
   function rotateBoard() {
+    game_state.isRotated = !game_state.isRotated;
+
     let table = document.getElementById('game_board').tBodies[0];
+    let rows = table.rows;
     
-    for (let i = 4; i >= 0; i--) {
-      table.append(table.rows[i])
+    for (let i = rows.length - 1; i >= 0; i--) {
+        let cells = rows[i].cells;
+        for (let j = cells.length - 1; j >= 0; j--) {
+            rows[i].append(cells[j]);
+        }
+        table.append(rows[i]);
     }
     
-    document.getElementsByClassName('front')[0].style.transform = 'rotate(180deg)';
+    document.getElementsByClassName('front')[0].style.transform = game_state.isRotated ? 'rotate(180deg)' : '';
   }
 
   function attachListeners() {
