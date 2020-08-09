@@ -22,24 +22,22 @@
       cursor:pointer;
     }
   </style>
-  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 </head>
 <body>
   <div class="wrapper">
     <button id='new_game'>NEW GAME</button>
+    <button id='join_game'>JOIN GAME</button>
   </div>
   <script>
     // GET '/api/newgame'
-    let button = document.getElementById('new_game');
+    document.getElementById('new_game').onclick = () => {
+      let gameID = Math.floor(Math.random() * 2560).toString(16);
+      window.location.replace(`/g/?gameID=${gameID}&player=1`);
+    }
 
-    button.onclick = () => {
-      axios.get('/api/newgame').then(res => {
-        console.log(res, res.data);
-        let gameID = res.data.gameID;
-
-      // redirect to '/board?gameID="foo",player="1"'
-        window.location.replace(`/game?gameID=${gameID}&player=1`);
-      })
+    document.getElementById('join_game').onclick = () => {
+      let gameID = window.prompt('Game code:');
+      window.location.replace(`/g/?gameID=${gameID}&player=2`);
     }
 
   </script>

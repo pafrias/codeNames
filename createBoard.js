@@ -1,4 +1,3 @@
-
 // return 4 bit arrays, 2 for each player's assassins and agents
 function createBoard() {
   let board = 0,
