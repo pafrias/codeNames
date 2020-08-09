@@ -30,9 +30,10 @@ let dist = path.resolve(__dirname, 'dist');
 app.use(express.static(dist));
 
 app.get('/api/fill', async (req, res) => {
-for (let game of createGameSet(2560)) {
-  cache.set(
-    counter.toString(16), JSON.stringify(game), (e, bool
+  let counter = 0;
+  for (let game of createGameSet(2560)) {
+    cache.set(
+      (counter++).toString(16), JSON.stringify(game), (e, bool
       ) => {
       if (e) {
         console.log(e, bool)
@@ -40,6 +41,7 @@ for (let game of createGameSet(2560)) {
       };
     });
   }
+  res.sendStatus(200);
 });
 
 const PORT = process.env.PORT || 80;
