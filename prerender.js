@@ -117,11 +117,11 @@ nav {
 `;
 
 const renderHtml = (gameID, isRotated, agents, sass) => {
-  console.log(agents, sass)
+  // console.log(agents, sass)
   let rows = convertBitsToRows(agents, sass);
-  console.log(rows);
+  // console.log(rows);
   let tRows = convertRowsToHtml(rows, isRotated);
-  console.log(tRows);
+  // console.log(tRows);
   return template(gameID, isRotated, tRows.join(''));
 }
 
