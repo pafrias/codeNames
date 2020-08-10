@@ -1,4 +1,4 @@
-const { createBoard} = require('./createBoard');
+const { createBoard} = require('../createBoard');
 
 function testFunc(N) {
   let err = false;
@@ -20,5 +20,8 @@ function logSets(N) {
 }
 
 logSets(20);
-//testFunc(2560);
+
+module.exports = {
+  testFunc
+}
 

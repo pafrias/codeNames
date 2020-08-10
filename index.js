@@ -16,7 +16,7 @@ app.get('/g/', async (req, res) => {
   if (player > 0 && player < 3 && gameID) {
     getGameData(gameID, player).then(data => {
       let {agents, sass} = data;
-      let html = renderHtml(gameID, player === 2, agents, sass);
+      let html = renderHtml(gameID, player === "2", agents, sass);
       res.send(html);
     }).catch(e => {
       console.log(e);
