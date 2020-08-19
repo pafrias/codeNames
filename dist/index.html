@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8">codename
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aliases - Twosies</title>
+  <title>Psuedonyms - Double-Dash</title>
   <style>
     button {
       display:block;
@@ -31,13 +31,13 @@
   <script>
     // GET '/api/newgame'
     document.getElementById('new_game').onclick = () => {
-      let gameID = Math.floor(Math.random() * 2560).toString(16);
-      window.location.replace(`/g/?gameID=${gameID}&player=1`);
+      let gameID = Math.floor(Math.random() * 2560);
+      window.location.replace(`/g/${gameID}/1`);
     }
 
     document.getElementById('join_game').onclick = () => {
       let gameID = window.prompt('Game code:');
-      window.location.replace(`/g/?gameID=${gameID}&player=2`);
+      window.location.replace(`/g/${gameID}/2`);
     }
 
   </script>

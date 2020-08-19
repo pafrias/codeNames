@@ -4,6 +4,7 @@
   "description": "small app for generating 2 person CodeNames boards",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,7 +27,7 @@
     "express": "^4.17.1",
     "mathjs": "^7.1.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.4",
-    "redis": "^3.0.2"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.4"
   }
 }
